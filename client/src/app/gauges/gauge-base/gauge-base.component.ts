@@ -211,4 +211,13 @@ export class GaugeBaseComponent {
     static getBlinkActionId(act: GaugeAction) {
         return `${act.variableId}-${act.range.max}-${act.range.min}`;
     }
+
+    static walkTreeNodeToSetAttribute(node, attributeName: string, attributeValue: string | number) {
+        node?.setAttribute(attributeName, attributeValue);
+        Utils.walkTree(node, (element) => {
+            if (element.id?.startsWith('SHE')) {
+                element.setAttribute(attributeName, attributeValue);
+            }
+        });
+    }
 }
